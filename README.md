@@ -89,6 +89,25 @@ python -m rag_demo.cli --query "What is this project about?"
 4. The retriever supplies the most relevant chunks which are injected into the prompt before the
    Gemini model generates a final grounded answer.
 
+## System Diagram
+
+```mermaid
+flowchart LR
+    User[User / CLI] --> CLI[rag-demo CLI]
+    CLI --> CFG[Settings / .env]
+    CLI --> Loader[Data Loader]
+    Loader --> Docs[(Markdown / Text Files)]
+    Loader --> Splitter[Recursive Text Splitter]
+    Splitter --> Embeds[Gemini Embeddings]
+    Embeds -->|Vectors| Chroma[(ChromaDB Store)]
+    Chroma --> Retriever[LangChain Retriever]
+    Retriever --> Prompt[Prompt Template]
+    CFG --> LLM[Gemini Chat Model]
+    Prompt --> LLM
+    LLM --> Answer[Grounded Response]
+    Answer --> User
+```
+
 Because everything lives in a single directory, you can easily swap in your own notes, point the
 tool at internal docs, or embed this pipeline inside a larger application.
 
