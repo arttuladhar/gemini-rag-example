@@ -1,0 +1,4 @@
+.rag_cache/
+*.env
+src/gemini_rag_example.egg-info/*
+src/rag_demo/__pycache__/*

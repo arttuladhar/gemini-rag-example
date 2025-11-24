@@ -5,8 +5,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+# Try loading local.env first, then fall back to .env
+env_file = Path("local.env")
+if not env_file.exists():
+    env_file = Path(".env")
+load_dotenv(env_file)
 
 
 @dataclass(slots=True)
@@ -14,7 +19,7 @@ class Settings:
     """Runtime configuration for the sample RAG pipeline."""
 
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
-    gemini_model: str = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    gemini_model: str = os.getenv("GEMINI_MODEL", "gemini-1.5-flash-latest")
     embedding_model: str = os.getenv("GEMINI_EMBEDDING_MODEL", "models/text-embedding-004")
     temperature: float = float(os.getenv("GEMINI_TEMPERATURE", "0.2"))
     top_k: int = int(os.getenv("RETRIEVAL_TOP_K", "4"))
