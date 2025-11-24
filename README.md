@@ -36,6 +36,21 @@ echo 'GEMINI_API_KEY="your-key"' >> .env  # or edit the file directly
 rag-demo -q "Give me a one-liner about this demo."
 ```
 
+## Example Runs
+
+Once dependencies and credentials are in place, try these variations:
+
+```bash
+# Use the default sample question
+rag-demo
+
+# Ask something custom
+rag-demo --query "Summarize the architecture in two sentences."
+
+# Temporarily target a different knowledge base folder
+RAG_DATA_DIR=./my_notes rag-demo -q "What's the pitch?"
+```
+
 If you prefer not to install the console script, you can run the module directly:
 
 ```bash
